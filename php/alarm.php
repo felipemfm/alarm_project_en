@@ -6,8 +6,9 @@ date_default_timezone_set('Asia/Tokyo');
 $date = date('F j, Y');
 $time = date("H:i");
 //APIのURLの先頭と認証キー
+static $auth_key = //認証キーを入力してください;
 static $header = "https://api-tokyochallenge.odpt.org/api/v4/datapoints/";
-static $key="?acl:consumerKey=99ALsOEmGINOQdkB4JCC0E65hfVjF0Q9JY7nehtdRAo";
+static $key="?acl:consumerKey={$auth_key}}";
 
 if(isset($_POST)) {
     $operator = $_POST['operator'];
