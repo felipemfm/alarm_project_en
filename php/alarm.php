@@ -2,24 +2,26 @@
 //
 //APIは、https://developer-tokyochallenge.odpt.org/ja/infoで提供されました。
 //
+//https://api-tokyochallenge.odpt.org/api/v4/odpt:Railway?acl:consumerKey=99ALsOEmGINOQdkB4JCC0E65hfVjF0Q9JY7nehtdRAo
 date_default_timezone_set('Asia/Tokyo');
 $date = date('F j, Y');
 $time = date("H:i");
 //APIのURLの先頭と認証キー
-static $auth_key = //認証キーを入力してください;
+static $auth_key = "99ALsOEmGINOQdkB4JCC0E65hfVjF0Q9JY7nehtdRAo";
 static $header = "https://api-tokyochallenge.odpt.org/api/v4/datapoints/";
-static $key="?acl:consumerKey={$auth_key}}";
+$key= "?acl:consumerKey={$auth_key}";
 
 if(isset($_POST)) {
     $operator = $_POST['operator'];
-    $line = $_POST['line'];
+    $line = $_POST['train_line'];
     $origin = $_POST['origin'];
     $destination = $_POST['destination'];
 
-    $origin = "{$operator}.{$line}.{$origin}";
-    $destination = "{$operator}.{$line}.{$destination}";
+    $origin = str_replace("odpt.Station:","",$origin);
+    $destination = str_replace("odpt.Station:","",$destination);
+    $line = str_replace("odpt.Railway:","",$line);
 
-    $url = "{$header}odpt.Railway:{$operator}.{$line}{$key}";
+    $url = "{$header}odpt.Railway:{$line}{$key}";
     $arr = json_decode(file_get_contents($url), true);
 
     //駅インデックスに基づいて、線路方向(上り/下り)決断
@@ -53,7 +55,7 @@ if(isset($_POST)) {
             //現在の時間に基づいて,次の電車のナンバーを
             $train_number = $station_time_table[0]['odpt:stationTimetableObject'][$i]['odpt:trainNumber'];
 
-            $train_time_table_url = "{$header}odpt.TrainTimetable:{$operator}.{$line}.{$train_number}.{$day}{$key}";
+            $train_time_table_url = "{$header}odpt.TrainTimetable:{$line}.{$train_number}.{$day}{$key}";
             $train_time_table = json_decode(file_get_contents($train_time_table_url), true);
 
             //行き先確認条件
@@ -93,21 +95,21 @@ if(isset($_POST)) {
 <body>
 <div class="container">
     <!--開発$Variables-->
-    <!--<p>--><?php //echo "$time";?><!--</p>-->
-    <!--<p>--><?php //echo "$operator";?><!--</p>-->
-    <!--<p>--><?php //echo "$line";?><!--</p>-->
-    <!--<p>--><?php //echo "$origin";?><!--</p>-->
-    <!--<p>--><?php //echo "$destination";?><!--</p>-->
-    <!--<p>--><?php //echo "$origin_index";?><!--</p>-->
-    <!--<p>--><?php //echo "$destination_index";?><!--</p>-->
-    <!--<p>--><?php //echo "$direction";?><!--</p>-->
-    <!--<p>--><?php //echo "$day";?><!--</p>-->
-    <!--<p>--><?php //echo "$train_number";?><!--</p>-->
-    <!--<p>--><?php //echo "$arrival_time";?><!--</p>-->
+<!--    <p>--><?php //echo "$time";?><!--</p>-->
+<!--    <p>--><?php //echo "$operator";?><!--</p>-->
+<!--    <p>--><?php //echo "$line";?><!--</p>-->
+<!--    <p>--><?php //echo "$origin";?><!--</p>-->
+<!--    <p>--><?php //echo "$destination";?><!--</p>-->
+<!--    <p>--><?php //echo "$origin_index";?><!--</p>-->
+<!--    <p>--><?php //echo "$destination_index";?><!--</p>-->
+<!--    <p>--><?php //echo "$direction";?><!--</p>-->
+<!--    <p>--><?php //echo "$day";?><!--</p>-->
+<!--    <p>--><?php //echo "$train_number";?><!--</p>-->
+<!--    <p>--><?php //echo "$arrival_time";?><!--</p>-->
     <!--API Linkのまとめ-->
-    <p><?php echo "$url";?></p>
-    <p><?php echo "$train_time_table_url";?></p>
-    <p><?php echo "$station_time_table_url";?></p>
+<!--    <p>--><?php //echo "$url";?><!--</p>-->
+<!--    <p>--><?php //echo "$train_time_table_url";?><!--</p>-->
+<!--    <p>--><?php //echo "$station_time_table_url";?><!--</p>-->
 </div>
 
 
@@ -115,6 +117,7 @@ if(isset($_POST)) {
     <div class="text-center">
         <img src="../image/icon.png" class="rounded mx-auto d-block" alt="icon" style="width: 20%;margin-top: 1em;">
         <h1>TrainAlarm</h1>
+        <h2 style="margin: 2em 0"><strong>線路：</strong><?php echo $line;?></h2>
         <div class="row" style="margin: 2em 0">
             <div class="col-sm">
                 <h2><strong>発車駅:</strong><?php echo $origin_ja;?></h2>
@@ -123,7 +126,7 @@ if(isset($_POST)) {
                 <h2><strong>行先駅:</strong><?php echo $destination_ja;?></h2>
             </div>
         </div>
-        <h2 style="margin: 2em 0"><strong>到着予定時刻:</strong><?php echo $arrival_time;?></h2>
+        <h2 style="margin: 2em 0"><strong>到着時間：</strong><?php echo $arrival_time;?></h2>
         <h2 style="margin: 2em 0"><strong>目覚まし後:</strong><span id="alarm_time"></span></h2>
     </div>
 </div>

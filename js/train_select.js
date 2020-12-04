@@ -1,0 +1,52 @@
+const auth_key = "99ALsOEmGINOQdkB4JCC0E65hfVjF0Q9JY7nehtdRAo";
+
+function getLine(){
+    $('#train_line').find('option:not(:first)').remove();
+    $('#origin').find('option:not(:first)').remove();
+    $('#destination').find('option:not(:first)').remove();
+    var operator = $('#operator').val();
+    const url = "https://api-tokyochallenge.odpt.org/api/v4/odpt:Railway?odpt:operator=odpt.Operator:"+operator+"&acl:consumerKey="+auth_key;
+    $.getJSON(url,(data)=>{
+        $(data).each((i)=>{
+            var option_value = data[i]['owl:sameAs'];
+            var title = data[i]['odpt:railwayTitle']['en'];
+            if(data[i]['odpt:stationOrder'].length > 0)
+                $('#train_line').append(`<option value="${option_value}">${title}</option>`);
+            else
+                $('#train_line').append(`<option value="${option_value}" disabled style="color: lightcoral">${title} - 不使用</option>`);
+        });
+    });
+}
+
+function getStation(){
+    $('#origin').find('option:not(:first)').remove();
+    $('#destination').find('option:not(:first)').remove();
+    var line = $('#train_line').val();
+    const station_url = "https://api-tokyochallenge.odpt.org/api/v4/datapoints/"+line+"?acl:consumerKey="+auth_key;
+    $.getJSON(station_url,(data)=>{
+        $(data[0]['odpt:stationOrder']).each((i)=>{
+            var option_value = data[0]['odpt:stationOrder'][i]['odpt:station'];
+            var title = data[0]['odpt:stationOrder'][i]['odpt:stationTitle']['en'];
+            $('#origin').append(`<option value="${option_value}">${title}</option>`);
+            $('#destination').append(`<option value="${option_value}">${title}</option>`);
+        });
+    });
+}
+
+$(document).ready( ()=>{
+   $('#error').hide();
+   $('#submit').click((event)=>{
+       if($('#origin').val()===$('#destination').val()){
+           $('#error').show();
+           event.preventDefault();
+           return;
+       }
+   });
+});
+
+
+function resetValue(){
+    $('#train_line').find('option:not(:first)').remove();
+    $('#origin').find('option:not(:first)').remove();
+    $('#destination').find('option:not(:first)').remove();
+}
