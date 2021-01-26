@@ -5,15 +5,17 @@ function getLine(){
     $('#origin').find('option:not(:first)').remove();
     $('#destination').find('option:not(:first)').remove();
     var operator = $('#operator').val();
+
     const url = "https://api-tokyochallenge.odpt.org/api/v4/odpt:Railway?odpt:operator=odpt.Operator:"+operator+"&acl:consumerKey="+auth_key;
+    // console.log(url);
     $.getJSON(url,(data)=>{
         $(data).each((i)=>{
             var option_value = data[i]['owl:sameAs'];
             var title = data[i]['odpt:railwayTitle']['en'];
             if(data[i]['odpt:stationOrder'].length > 0)
                 $('#train_line').append(`<option value="${option_value}">${title}</option>`);
-            else
-                $('#train_line').append(`<option value="${option_value}" disabled style="color: lightcoral">${title} - 不使用</option>`);
+            // else
+            //     $('#train_line').append(`<option value="${option_value}" disabled style="color: lightcoral">${title} - 選択不可</option>`);
         });
     });
 }
@@ -33,20 +35,10 @@ function getStation(){
     });
 }
 
-$(document).ready( ()=>{
-   $('#error').hide();
-   $('#submit').click((event)=>{
-       if($('#origin').val()===$('#destination').val()){
-           $('#error').show();
-           event.preventDefault();
-           return;
-       }
-   });
-});
-
-
 function resetValue(){
     $('#train_line').find('option:not(:first)').remove();
     $('#origin').find('option:not(:first)').remove();
     $('#destination').find('option:not(:first)').remove();
+    $('#error').remove();
 }
+
