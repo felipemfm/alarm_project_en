@@ -5,17 +5,7 @@ if(!isset($_SESSION["userName"])){
     exit();
 }
 ?>
-<!DOCTYPE>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>UserProfile</title>
-    <link rel="stylesheet" href="css/resetcss.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-          rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-</head>
-<body onload="document.alarm.reset();">
-<?php include_once "includes/nav.inc.php";?>
+<?php include_once "includes/header.inc.php";?>
 <h1 class="text-center" style="margin: 1em;">ユーザプロファイル</h1>
 <div class="container" style="width: 500px">
     <div class="row">

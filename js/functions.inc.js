@@ -18,6 +18,7 @@ function getLine(){
             //     $('#train_line').append(`<option value="${option_value}" disabled style="color: lightcoral">${title} - 選択不可</option>`);
         });
     });
+
 }
 
 function getStation(){

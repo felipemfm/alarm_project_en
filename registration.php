@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>TrainAlarm会員登録</title>
-    <link rel="stylesheet" href="css/resetcss.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-</head>
-<body>
-    <div class="container border" style="width: 500px;">
+<?php include_once "includes/header.inc.php"?>
+    <div class="container" style="width: 500px;">
 
         <div class="text-center">
             <img src="image/icon.png" class="rounded mx-auto d-block" alt="icon" style="width: 30%;margin-top: 1em;">
@@ -57,9 +49,6 @@
             </div>
             <input type="submit" name="submit" value="Submit" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 1em;">
         </form>
-        <button class="btn btn-danger btn-lg btn-block" style="margin-bottom: 1em;" onclick="location.href='login.php'">
-            Return
-        </button>
     </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </body>
