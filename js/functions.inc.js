@@ -1,5 +1,8 @@
-const auth_key = "99ALsOEmGINOQdkB4JCC0E65hfVjF0Q9JY7nehtdRAo";
-
+let auth_key;
+$.get("key.txt",function (data){
+    auth_key = data;
+});
+console.log(auth_key);
 function getLine(){
     $('#train_line').find('option:not(:first)').remove();
     $('#origin').find('option:not(:first)').remove();

@@ -69,9 +69,21 @@ function loginUser($conn, $username, $pwd){
         $_SESSION["userName"] = $uidExists["usersName"];
         $_SESSION["userEmail"] = $uidExists["usersEmail"];
         $_SESSION["userPhoneNumber"] = $uidExists["usersPhoneNumber"];
-        $_SESSION["header"] = $uidExists["active_alarm"];
-        header("location: ../index.php");
-        exit();
+
+        $activeAlarm = getActiveAlarm($conn, $_SESSION["userid"]);
+        if($activeAlarm){
+            $_SESSION["alarm_date"] = $activeAlarm["alarm_date"];
+            $_SESSION["line"] = $activeAlarm["line"];
+            $_SESSION["origin"] = $activeAlarm["origin"];
+            $_SESSION["destination"] = $activeAlarm["destination"];
+            $_SESSION["departure_time"] = $activeAlarm["departure_time"];
+            $_SESSION["arrival_time"] = $activeAlarm["arrival_time"];
+            header("location: ../alarm_countdown.php");
+            exit();
+        }else {
+            header("location: ../index.php");
+            exit();
+        }
     }
 }
 
@@ -90,19 +102,19 @@ function insertUsersHistory($conn, $userid, $operator, $line, $origin, $destinat
     mysqli_stmt_close($stmt);
 }
 
-function addActiveAlarm($conn, $userid, $header){
-    $sql = "UPDATE users SET active_alarm = ? WHERE usersid = ?";
+function addActiveAlarm($conn, $userid, $alarm_date, $line,  $origin, $destination, $departure_time, $arrival_time){
+    $sql = "INSERT INTO active_alarm (usersid,alarm_date,line,origin,destination,departure_time,arrival_time) VALUE (?,?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt,$sql)){
         header("location: ../index.php?error=stmtFailed");
     }
-    mysqli_stmt_bind_param($stmt, "ss", $header, $userid);
+    mysqli_stmt_bind_param($stmt, "issssss", $userid,  $alarm_date, $line, $origin, $destination, $departure_time, $arrival_time);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 }
 
 function cancelAlarm ($conn, $userid){
-    $sql = "UPDATE users SET active_alarm = NULL WHERE usersid = ?";
+    $sql = "DELETE FROM active_alarm WHERE usersid = ?";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt,$sql)){
         header("location: ../index.php?error=stmtFailed");
@@ -110,6 +122,23 @@ function cancelAlarm ($conn, $userid){
     mysqli_stmt_bind_param($stmt, "s", $userid);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
+}
+function getActiveAlarm($conn, $userid){
+    $sql = "SELECT * FROM active_alarm WHERE usersid = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt,$sql)){
+        header("location: registration.php?error=stmtFailed");
+    }
+    mysqli_stmt_bind_param($stmt, "i", $userid);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    mysqli_stmt_close($stmt);
+    if($row = mysqli_fetch_assoc($resultData)){
+        return $row;
+    }else{
+        return $result = false;
+    }
 }
 
 //profile.inc.php

@@ -1,12 +1,12 @@
 <?php
     session_start();
     date_default_timezone_set('Asia/Tokyo');
-    $alarm_date = $_GET[alarm_date];
-    $line = $_GET[line];
-    $origin_ja = $_GET[ori];
-    $destination_ja = $_GET[des];
-    $departure_time = $_GET[de_time];
-    $arrival_time = $_GET[arri_time];
+    $alarm_date = $_SESSION["alarm_date"];
+    $line = $_SESSION["line"];
+    $origin = $_SESSION["origin"];
+    $destination = $_SESSION["destination"];
+    $departure_time = $_SESSION["departure_time"];
+    $arrival_time = $_SESSION["arrival_time"];
     if($arrival_time < date("H:i")){
         header("location: includes/cancel.inc.php");
         exite();
@@ -50,10 +50,10 @@
         </div>
         <div class="row" style="margin: 0.5em 0 1em 0">
             <div class="col-sm">
-                <h2><?php echo $origin_ja;?></h2>
+                <h2><?php echo $origin;?></h2>
             </div>
             <div class="col-sm">
-                <h2><?php echo $destination_ja;?></h2>
+                <h2><?php echo $destination;?></h2>
             </div>
         </div>
         <div class="row" style="margin: 1em 0 0.5em 0">

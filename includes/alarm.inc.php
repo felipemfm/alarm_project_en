@@ -6,17 +6,19 @@
 session_start();
 include_once "function.inc.php";
 include_once "dbh.inc.php";
-include_once "key.inc.php";
-
 if(isset($_POST["submit"])) {
     date_default_timezone_set('Asia/Tokyo');
     $date = date('F j, Y');
     $time = date("H:i");
+    $day_check = array(9,10,11,16,17,23,24,30,31,37,38,42,44,45,51,52,58,59,65,66,72,73,79,80,86,87,93,94,100,101,107,108,114,115,119,
+        121,122,123,124,125,128,129,135,136,142,143,149,150,156,157,163,164,170,171,177,178,184,185,191,192,198,199,203,204,205,206,212,
+        213,219,220,221,226,227,233,234,240,241,247,248,254,255,261,262,263,266,268,269,275,276,282,283,289,290,296,297,303,304,310,311,
+        317,318,324,325,327,331,332,338,339,345,346,352,353,359,360);
+
     //APIのURLの先頭と認証キー
+    $auth_key = file_get_contents("../key.txt",false,null,0,43);
+    $key= "?acl:consumerKey={$auth_key}";
     $header = "https://api-tokyochallenge.odpt.org/api/v4/datapoints/";
-    if (isset($auth_key)) {
-        $key= "?acl:consumerKey={$auth_key}";
-    }
 
     $operator = $_POST['operator'];
     $line = $_POST['train_line'];
@@ -55,8 +57,9 @@ if(isset($_POST["submit"])) {
     else
         $direction = str_replace('odpt.RailDirection:', '', $arr[0]['odpt:descendingRailDirection']);
 
-    //土日祝決断　未完成
-    if (date("l") == 'Saturday' or date("l") == 'Sunday')
+    //土日祝決断
+    $today = date('z')+1;
+    if (in_array($today, $day_check))
         $day = "SaturdayHoliday";
     else
         $day = "Weekday";
@@ -97,13 +100,19 @@ if(isset($_POST["submit"])) {
         header("location: ../index.php?error=unavailable");
         exit();
     }else{
-        $alarm_date= "{$date}\t{$arrival_time}:00";
-        $header = "alarm_date={$alarm_date}&line={$line}&ori={$origin_en}&des={$destination_en}&de_time={$departure_time}&arri_time={$arrival_time}";
+        $alarm_date = "{$date}\t{$arrival_time}:00";
+        $_SESSION["alarm_date"] = $alarm_date;
+        $_SESSION["line"] = $line;
+        $_SESSION["origin"] = $origin_en;
+        $_SESSION["destination"] = $destination_en;
+        $_SESSION["departure_time"] = $departure_time;
+        $_SESSION["arrival_time"] = $arrival_time;
+
         if (isset($conn)) {
             insertUsersHistory($conn, $_SESSION["userid"], $operator, $line, $origin, $destination);
-            addActiveAlarm($conn, $_SESSION["userid"], $header);
+            addActiveAlarm($conn, $_SESSION["userid"],$alarm_date, $line, $origin_en, $destination_en, $departure_time, $arrival_time);
         }
-        header("location: ../alarm_countdown.php?{$header}");
+        header("location: ../alarm_countdown.php");
         exit();
     }
 }else{

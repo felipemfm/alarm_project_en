@@ -1,11 +1,7 @@
 <?php
-    session_start();
-    if(isset($_SESSION["header"])){
-        header("location: alarm_countdown.php?{$_SESSION["header"]}");
-        exit();
-    }
+session_start();
+include_once "includes/header.inc.php";
 ?>
-<?php include_once "includes/header.inc.php";?>
 <div class="container" style="width: 500px">
 
     <h1 class='text-center' style='padding: 1em;'>アラム設定</h1>
