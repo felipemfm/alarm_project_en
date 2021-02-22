@@ -1,5 +1,5 @@
 <?php include_once "includes/header.inc.php"?>
-    <div class="container" style="width: 500px;margin-top: 1em;">
+    <div class="container mt-3 pb-5 bg-white border rounded-3" style="width: 500px;">
         <div class="text-center">
             <img src="image/icon.png" class="rounded mx-auto d-block" alt="icon" style="width: 30%;margin-top: 1em;">
             <h1>TrainAlarm</h1>
@@ -34,9 +34,8 @@
                 <h2>パスワード</h2>
                 <input type="password" name="pwd" class="form-control" ><br>
             </div>
-            <input type="submit" name="submit" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 1em;" value="Login">
+            <input type="submit" name="submit" class="btn btn-primary btn-lg" value="Login">
         </form>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-</body>
+<?php include_once "includes/footer.inc.html";?>
 </html>

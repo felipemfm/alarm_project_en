@@ -7,7 +7,7 @@ if(!isset($_SESSION["userName"])){
 ?>
 <?php include_once "includes/header.inc.php";?>
 
-<div class="container" style="width: 500px">
+<div class="container bg-white border rounded-3 mt-5 pb-3" style="width: 500px">
     <h1 class="text-center" style="margin: 1em;">プロファイル編集</h1>
     <?php
     if(isset($_GET["error"])){
@@ -69,15 +69,10 @@ if(!isset($_SESSION["userName"])){
             <p>新パスワード確認</p>
             <input type="password" name="newPwdRepeat" class="form-control">
             <p>現在パスワード</p>
-            <div class="input-group mb-3">
-                <input type="password" name="pwd" class="form-control" >
-                <button class="btn btn-primary" type="submit" name="submit" id="button-addon2">Edit</button>
-            </div>
+            <input type="password" name="pwd" class="form-control" >
+            <button class="btn btn-primary mt-3" type="submit" name="submit">Edit</button>
         </div>
     </form>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-<script src="js/functions.inc.js"></script>
-</body>
+<?php include_once "includes/footer.inc.html";?>
 </html>

@@ -1,5 +1,5 @@
 <?php include_once "includes/header.inc.php"?>
-    <div class="container" style="width: 500px;">
+    <div class="container bg-white border rounded-3" style="width: 500px;">
 
         <div class="text-center">
             <img src="image/icon.png" class="rounded mx-auto d-block" alt="icon" style="width: 30%;margin-top: 1em;">
@@ -47,9 +47,8 @@
                 <h2>携帯番号</h2>
                 <input type="text" name="phoneNumber" class="form-control" ><br>
             </div>
-            <input type="submit" name="submit" value="Submit" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 1em;">
+            <input type="submit" name="submit" value="Submit" class="btn btn-primary btn-lg mb-3">
         </form>
     </div>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-</body>
+<?php include_once "includes/footer.inc.html";?>
 </html>

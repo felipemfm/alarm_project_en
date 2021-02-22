@@ -8,7 +8,6 @@ include_once "function.inc.php";
 include_once "dbh.inc.php";
 if(isset($_POST["submit"])) {
     date_default_timezone_set('Asia/Tokyo');
-    $date = date('F j, Y');
     $time = date("H:i");
     $day_check = array(9,10,11,16,17,23,24,30,31,37,38,42,44,45,51,52,58,59,65,66,72,73,79,80,86,87,93,94,100,101,107,108,114,115,119,
         121,122,123,124,125,128,129,135,136,142,143,149,150,156,157,163,164,170,171,177,178,184,185,191,192,198,199,203,204,205,206,212,
@@ -100,7 +99,7 @@ if(isset($_POST["submit"])) {
         header("location: ../index.php?error=unavailable");
         exit();
     }else{
-        $alarm_date = "{$date}\t{$arrival_time}:00";
+        $alarm_date = date("F j, Y")."\t".$arrival_time.":00";
         $_SESSION["alarm_date"] = $alarm_date;
         $_SESSION["line"] = $line;
         $_SESSION["origin"] = $origin_en;
@@ -109,6 +108,7 @@ if(isset($_POST["submit"])) {
         $_SESSION["arrival_time"] = $arrival_time;
 
         if (isset($conn)) {
+            cancelAlarm($conn, $_SESSION["userid"]);
             insertUsersHistory($conn, $_SESSION["userid"], $operator, $line, $origin, $destination);
             addActiveAlarm($conn, $_SESSION["userid"],$alarm_date, $line, $origin_en, $destination_en, $departure_time, $arrival_time);
         }

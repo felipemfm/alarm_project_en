@@ -6,8 +6,9 @@ if(!isset($_SESSION["userName"])){
 }
 ?>
 <?php include_once "includes/header.inc.php";?>
-<h1 class="text-center" style="margin: 1em;">ユーザプロファイル</h1>
-<div class="container" style="width: 500px">
+
+<div class="container bg-white border rounded-3 mt-5" style="width: 500px">
+    <h1 class="text-center m-1">ユーザプロファイル</h1>
     <div class="row">
         <div class="col-sm">
             <h3 class="text-start">ユーザＩＤ:</h3>

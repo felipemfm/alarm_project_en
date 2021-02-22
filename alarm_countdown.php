@@ -12,31 +12,8 @@
         exite();
     }
 ?>
-
-<!DOCTYPE>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TrainAlarm</title>
-    <link rel="stylesheet" href="css/resetcss.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
-    <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="image/favicon-16x16.png">
-    <link rel="manifest" href="image/site.webmanifest">
-    <link rel="mask-icon" href="/image/favicon.ico" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
-
-
-</head>
-<body>
 <?php include_once "includes/header.inc.php";?>
-<div class="container" style="width: 700px;">
+<div class="container bg-white border rounded-3 mt-3" style="width: 700px;">
     <div class="text-center">
         <h2 style="margin: 1em 0 0.5em 0"><strong>線路</strong></h2>
         <h2 style="margin: 0.5em 0 1em 0"><?php echo $line;?></h2>
@@ -75,14 +52,14 @@
         <!--        <h2 style="margin: 2em 0"><strong>到着時間：</strong>--><?php //echo $arrival_time;?><!--</h2>-->
         <h2 style="margin: 2em 0"><strong>到着アラーム:</strong><span id="alarm_time"></span></h2>
     </div>
-    <form action="includes/cancel.inc.php" method="post">
-        <button type="submit" class="btn btn-danger btn-lg btn-block" style="margin-bottom: 1em;" ">
+    <form action="includes/cancel.inc.php" method="post"">
+        <button type="submit" class="btn btn-danger btn-lg" style="margin-bottom: 1em;" ">
         Cancel
         </button>
     </form>
 
 </div>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<?php include_once "includes/footer.inc.html";?>
 <script>
     //目覚ましcountDownScript
     var countDown = new Date("<?php echo "$alarm_date"?>").getTime();
@@ -102,5 +79,4 @@
         }
     },1000);
 </script>
-</body>
 </html>

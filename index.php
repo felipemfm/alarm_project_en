@@ -1,8 +1,12 @@
 <?php
 session_start();
 include_once "includes/header.inc.php";
+if($_SESSION["alarm_date"]){
+    header("location: alarm_countdown.php");
+    exit();
+}
 ?>
-<div class="container" style="width: 500px">
+<div class="container bg-white border rounded-3 mt-3 pb-3" style="width: 500px">
 
     <h1 class='text-center' style='padding: 1em;'>アラム設定</h1>
     <div id="error" class="text-center" style="color: red">
@@ -28,17 +32,17 @@ include_once "includes/header.inc.php";
                 <option value="JR-East">JR-East</option>
                 <option value="TokyoMetro">TokyoMetro</option>
                 <option value="Toei">Toei</option>
-                <option value="Yurikamome">Yurikamome</option>
-                <option value="Keio">Keio</option>
-                <option value="Keisei">Keisei</option>
-                <option value="Keikyu">Keikyu</option>
-                <option value="Odakyu">Odakyu</option>
-                <option value="Seibu">Seibu</option>
-                <option value="TokyoMonorail">TokyoMonorail</option>
-                <option value="Tokyu">Tokyu</option>
+<!--                <option value="Yurikamome">Yurikamome</option>-->
+<!--                <option value="Keio">Keio</option>-->
+<!--                <option value="Keisei">Keisei</option>-->
+<!--                <option value="Keikyu">Keikyu</option>-->
+<!--                <option value="Odakyu">Odakyu</option>-->
+<!--                <option value="Seibu">Seibu</option>-->
+<!--                <option value="TokyoMonorail">TokyoMonorail</option>-->
+<!--                <option value="Tokyu">Tokyu</option>-->
                 <option value="TWR">Rinkai</option>
-                <option value="Tobu">Tobu</option>
-                <option value="SaitamaRailway">SaitamaRailway</option>
+<!--                <option value="Tobu">Tobu</option>-->
+<!--                <option value="SaitamaRailway">SaitamaRailway</option>-->
             </select>
         </div>
         <div class="form-group">
@@ -59,20 +63,12 @@ include_once "includes/header.inc.php";
                 <option value="" selected ></option>
             </select>
         </div>
-        <div class="row">
-            <div class="col">
-                <input type="submit" id="submit" name="submit" class="btn btn-success btn-lg btn-block" style="margin-bottom: 1em;">
-            </div>
-            <div class="col">
-                <input type="reset" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 1em;" name="クリア" onclick="resetValue()">
-            </div>
+        <div class="btn-group mx-auto mt-4" role="group" style="width: 100%;">
+            <input type="submit" id="submit" name="submit" class="btn btn-success btn-lg col-5">
+            <input type="reset" class="btn btn-primary col-5 btn-lg"name="クリア" onclick="resetValue()">
         </div>
     </form>
 </div>
 
 </div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="js/functions.inc.js"></script>
-</body>
-</html>
+<?php include_once "includes/footer.inc.html";?>

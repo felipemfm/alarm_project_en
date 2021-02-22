@@ -72,12 +72,17 @@ function loginUser($conn, $username, $pwd){
 
         $activeAlarm = getActiveAlarm($conn, $_SESSION["userid"]);
         if($activeAlarm){
+
             $_SESSION["alarm_date"] = $activeAlarm["alarm_date"];
             $_SESSION["line"] = $activeAlarm["line"];
             $_SESSION["origin"] = $activeAlarm["origin"];
             $_SESSION["destination"] = $activeAlarm["destination"];
             $_SESSION["departure_time"] = $activeAlarm["departure_time"];
             $_SESSION["arrival_time"] = $activeAlarm["arrival_time"];
+            if($_SESSION["arrival_time"] <= date('H:i')){
+                header("location: cancel.inc.php");
+                exit();
+            }
             header("location: ../alarm_countdown.php");
             exit();
         }else {
@@ -92,7 +97,7 @@ function insertUsersHistory($conn, $userid, $operator, $line, $origin, $destinat
     $line = str_replace("{$operator}.","",$line);
     $origin = str_replace("{$operator}.{$line}.","",$origin);
     $destination = str_replace("{$operator}.{$line}.","",$destination);
-    $sql = "INSERT INTO users_history (userid,operator,line,origin,destination) VALUE (?,?,?,?,?);";
+    $sql = "INSERT INTO users_history (usersid,operator,line,origin,destination) VALUE (?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt,$sql)){
         header("location: ../index.php?error=stmtFailed");
