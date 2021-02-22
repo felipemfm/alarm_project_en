@@ -36,14 +36,14 @@
                 }
                 ?>
             </ul>
+            <?php
+            if(isset($_SESSION["userName"])) {
+                echo "<a class='nav-link active nav-item justify-content-end' href='includes/logout.inc.php'>Logout</a>";
+            }else{
+                echo "<a class='nav-link active nav-item justify-content-end' href='login.php'>Login</a>";
+                echo "<a class='nav-link active nav-item justify-content-end' href='registration.php'>Register</a>";
+            }
+            ?>
         </div>
-        <?php
-        if(isset($_SESSION["userName"])) {
-            echo "<a class='nav-link active nav-item justify-content-end' href='includes/logout.inc.php'>Logout</a>";
-        }else{
-            echo "<a class='nav-link active nav-item justify-content-end' href='login.php'>Login</a>";
-            echo "<a class='nav-link active nav-item justify-content-end' href='registration.php'>Register</a>";
-        }
-        ?>
     </div>
 </nav>
