@@ -128,17 +128,18 @@ if($_SESSION["userName"]&&$_SESSION["alarm_date"]){
                 <option value="" selected ></option>
             </select>
         </div>
-        <?php if(isset($_SESSION["userName"]) AND $cnt<5) {
-        echo "<div class='form-check'>
+        <?php if(isset($_SESSION["userName"]) ){
+            if($cnt<5) {
+                echo "<div class='form-check'>
             <input class='form-check-input' type='checkbox' id='fav' name='fav' name='set'>
-            <label class='form-check-label' for='fav'>気に入りにする</label>
-        </div>";
+            <label class='form-check-label' for='fav'>気に入りにする</label></div>";
+            }
         }else{
             echo "<div class='form-group'>
                     <h3>携帯番号(11桁)</h3>
-                    <input type='text' name='phone' class='input-group'>
-                  </div>";
-        }?>
+                    <input type='text' name='phone' class='input-group'></div>";
+        }
+        ?>
         <div class="btn-group mx-auto mt-4" role="group" style="width: 100%;">
             <input type="submit" id="submit" name="submit" class="btn btn-success btn-lg col-5">
             <input type="reset" class="btn btn-primary col-5 btn-lg"name="クリア" onclick="resetValue()">
@@ -154,6 +155,5 @@ if($_SESSION["userName"]&&$_SESSION["alarm_date"]){
 
 </div>
 </div>
-
 </div>
 <?php include_once "includes/footer.inc.html";?>
