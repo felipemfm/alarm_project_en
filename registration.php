@@ -44,7 +44,7 @@
                 <input type="email" name="email" class="form-control" ><br>
             </div>
             <div class="form-group">
-                <h2>携帯番号</h2>
+                <h2>携帯番号(11桁)</h2>
                 <input type="text" name="phoneNumber" class="form-control" ><br>
             </div>
             <input type="submit" name="submit" value="Submit" class="btn btn-primary btn-lg mb-3">

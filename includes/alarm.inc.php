@@ -24,12 +24,16 @@ if(isset($_POST["submit"])) {
     $origin = $_POST['origin'];
     $destination = $_POST['destination'];
 
-    if(empty($operator)||empty($line)||empty($origin)||empty($destination)){
-        header("location: ../index.php?error=emptyInput");
+    if(empty($operator)||empty($line)||empty($origin)||empty($destination)||(!isset($_SESSION["userName"])&&empty($_POST["phone"]))){
+        header("location: ../?error=emptyInput");
         exit();
     }
     if($origin == $destination){
-        header("location: ../index.php?error=sameAs");
+        header("location: ../?error=sameAs");
+        exit();
+    }
+    if (isset($_POST["phone"]) && invalidPhoneNumber($_POST["phone"]) !== false) {
+        header("location: ../?error=invalidPhoneNumber");
         exit();
     }
 
@@ -96,7 +100,7 @@ if(isset($_POST["submit"])) {
         }
     }
     if(empty($arrival_time)){
-        header("location: ../index.php?error=unavailable");
+        header("location: ../?error=unavailable");
         exit();
     }else{
         $alarm_date = date("F j, Y")."\t".$arrival_time.":00";
@@ -108,15 +112,23 @@ if(isset($_POST["submit"])) {
         $_SESSION["arrival_time"] = $arrival_time;
 
         if (isset($conn)) {
-            cancelAlarm($conn, $_SESSION["userid"]);
-            insertUsersHistory($conn, $_SESSION["userid"], $operator, $line, $origin, $destination);
-            addActiveAlarm($conn, $_SESSION["userid"],$alarm_date, $line, $origin_en, $destination_en, $departure_time, $arrival_time);
+            if(isset($_POST["phone"])){
+                $_SESSION["nonUserPhoneNumber"] = $_POST["phone"];
+                addActiveAlarm($conn, 0, $_SESSION["nonUserPhoneNumber"], $alarm_date, $line, $origin_en, $destination_en, $departure_time, $arrival_time);
+            }else if(isset($_SESSION["userName"])){
+                cancelAlarm($conn, $_SESSION["userid"],$_SESSION["userPhoneNumber"]);
+                insertUsersHistory($conn, $_SESSION["userid"], $operator, $line, $origin, $destination);
+                addActiveAlarm($conn, $_SESSION["userid"], $_SESSION["userPhoneNumber"], $alarm_date, $line, $origin_en, $destination_en, $departure_time, $arrival_time);
+                if (isset($_POST["fav"])) {
+                    insertUsersFavorite($conn, $_SESSION["userid"], $operator, $line, $origin, $destination);
+                }
+            }
         }
         header("location: ../alarm_countdown.php");
         exit();
     }
 }else{
-    header("location: ../index.php");
+    header("location: ../");
     exit();
 }
 

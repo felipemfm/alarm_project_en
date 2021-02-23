@@ -7,7 +7,7 @@ function invalidUid($username){
     return !preg_match("/^[a-zA-Z0-9]*$/", $username);
 }
 function invalidPhoneNumber($phoneNumber){
-    return !preg_match("/^[0-9]*$/", $phoneNumber);
+    return !preg_match("/^[0-9]*$/", $phoneNumber)||strlen($phoneNumber) != 11;
 }
 function invalidEmail($email){
     return !filter_var($email, FILTER_VALIDATE_EMAIL);
@@ -18,9 +18,7 @@ function pwdMatch($pwd,$pwdRepeat){
 function uidExist($conn, $username, $email){
     $sql = "SELECT * FROM users WHERE usersName = ? OR usersEmail =?;";
     $stmt = mysqli_stmt_init($conn);
-    if(!mysqli_stmt_prepare($stmt,$sql)){
-        header("location: registration.php?error=stmtFailed");
-    }
+    if(!mysqli_stmt_prepare($stmt,$sql)) header("location: registration.php?error=stmtFailed");
     mysqli_stmt_bind_param($stmt, "ss", $username, $email);
     mysqli_stmt_execute($stmt);
 
@@ -70,9 +68,8 @@ function loginUser($conn, $username, $pwd){
         $_SESSION["userEmail"] = $uidExists["usersEmail"];
         $_SESSION["userPhoneNumber"] = $uidExists["usersPhoneNumber"];
 
-        $activeAlarm = getActiveAlarm($conn, $_SESSION["userid"]);
+        $activeAlarm = getActiveAlarm($conn, $_SESSION["userid"],$_SESSION["userPhoneNumber"]);
         if($activeAlarm){
-
             $_SESSION["alarm_date"] = $activeAlarm["alarm_date"];
             $_SESSION["line"] = $activeAlarm["line"];
             $_SESSION["origin"] = $activeAlarm["origin"];
@@ -86,7 +83,7 @@ function loginUser($conn, $username, $pwd){
             header("location: ../alarm_countdown.php");
             exit();
         }else {
-            header("location: ../index.php");
+            header("location: ../");
             exit();
         }
     }
@@ -94,54 +91,60 @@ function loginUser($conn, $username, $pwd){
 
 //alarm.inc.php
 function insertUsersHistory($conn, $userid, $operator, $line, $origin, $destination){
+    $sql = "SELECT COUNT(*) FROM users_history WHERE usersid = ? HAVING COUNT(*) >= 20;";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt,$sql)) header("location: ../?error=stmtFailed");
+    mysqli_stmt_bind_param($stmt, "i", $userid);
+    mysqli_stmt_execute($stmt);
+    if(mysqli_stmt_get_result($stmt)){
+        mysqli_stmt_close($stmt);
+        $sql = "DELETE FROM users_history WHERE usersid = ? ORDER BY date ASC LIMIT 1;";
+        $stmt = mysqli_stmt_init($conn);
+        if(!mysqli_stmt_prepare($stmt,$sql)) header("location: ../?error=stmtFailed");
+        mysqli_stmt_bind_param($stmt, "i", $userid);
+        mysqli_stmt_execute($stmt);
+    }
+    mysqli_stmt_close($stmt);
+
     $line = str_replace("{$operator}.","",$line);
     $origin = str_replace("{$operator}.{$line}.","",$origin);
     $destination = str_replace("{$operator}.{$line}.","",$destination);
     $sql = "INSERT INTO users_history (usersid,operator,line,origin,destination) VALUE (?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
-    if(!mysqli_stmt_prepare($stmt,$sql)){
-        header("location: ../index.php?error=stmtFailed");
-    }
+    if(!mysqli_stmt_prepare($stmt,$sql)) header("location: ../?error=stmtFailed");
     mysqli_stmt_bind_param($stmt, "issss", $userid, $operator, $line, $origin, $destination);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 }
 
-function addActiveAlarm($conn, $userid, $alarm_date, $line,  $origin, $destination, $departure_time, $arrival_time){
-    $sql = "INSERT INTO active_alarm (usersid,alarm_date,line,origin,destination,departure_time,arrival_time) VALUE (?,?,?,?,?,?,?);";
+function addActiveAlarm($conn, $userid, $phone, $alarm_date, $line,  $origin, $destination, $departure_time, $arrival_time){
+    $sql = "INSERT INTO users_active_alarm (usersid,users_phone,alarm_date,line,origin,destination,departure_time,arrival_time) 
+            VALUE (?,?,?,?,?,?,?,?);";
     $stmt = mysqli_stmt_init($conn);
-    if(!mysqli_stmt_prepare($stmt,$sql)){
-        header("location: ../index.php?error=stmtFailed");
-    }
-    mysqli_stmt_bind_param($stmt, "issssss", $userid,  $alarm_date, $line, $origin, $destination, $departure_time, $arrival_time);
+    if(!mysqli_stmt_prepare($stmt,$sql)) header("location: ../?error=stmtFailed");
+    mysqli_stmt_bind_param($stmt, "isssssss", $userid, $phone, $alarm_date, $line, $origin, $destination, $departure_time, $arrival_time);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 }
 
-function cancelAlarm ($conn, $userid){
-    $sql = "DELETE FROM active_alarm WHERE usersid = ?";
+function cancelAlarm ($conn, $userid, $phone){
+    $sql = "DELETE FROM users_active_alarm WHERE usersid = ? AND users_phone = ?";
     $stmt = mysqli_stmt_init($conn);
-    if(!mysqli_stmt_prepare($stmt,$sql)){
-        header("location: ../index.php?error=stmtFailed");
-    }
-    mysqli_stmt_bind_param($stmt, "s", $userid);
+    if(!mysqli_stmt_prepare($stmt,$sql)) header("location: ../?error=stmtFailed");
+    mysqli_stmt_bind_param($stmt, "is", $userid, $phone);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 }
-function getActiveAlarm($conn, $userid){
-    $sql = "SELECT * FROM active_alarm WHERE usersid = ?";
+function getActiveAlarm($conn, $userid, $phone){
+    $sql = "SELECT * FROM users_active_alarm WHERE usersid = ? AND users_phone = ?";
     $stmt = mysqli_stmt_init($conn);
-    if(!mysqli_stmt_prepare($stmt,$sql)){
-        header("location: registration.php?error=stmtFailed");
-    }
-    mysqli_stmt_bind_param($stmt, "i", $userid);
+    if(!mysqli_stmt_prepare($stmt,$sql)) header("location: registration.php?error=stmtFailed");
+    mysqli_stmt_bind_param($stmt, "is", $userid,$phone);
     mysqli_stmt_execute($stmt);
 
     $resultData = mysqli_stmt_get_result($stmt);
     mysqli_stmt_close($stmt);
-    if($row = mysqli_fetch_assoc($resultData)){
-        return $row;
-    }else{
+    if($row = mysqli_fetch_assoc($resultData)) return $row; else{
         return $result = false;
     }
 }
@@ -153,9 +156,7 @@ function emptyInputEdit($edit1, $edit2, $edit3){
 function updateEmail($conn, $email, $userid){
     $sql = "UPDATE users SET usersEmail = ? WHERE usersid = ?";
     $stmt = mysqli_stmt_init($conn);
-    if(!mysqli_stmt_prepare($stmt,$sql)){
-        header("location: ../profile_edit.php?error=stmtFailed");
-    }
+    if(!mysqli_stmt_prepare($stmt,$sql)) header("location: ../profile_edit.php?error=stmtFailed");
     mysqli_stmt_bind_param($stmt, "ss", $email,$userid);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
@@ -163,9 +164,7 @@ function updateEmail($conn, $email, $userid){
 function updatePhoneNumber($conn, $phoneNumber, $userid){
     $sql = "UPDATE users SET usersPhoneNumber = ? WHERE usersid = ?";
     $stmt = mysqli_stmt_init($conn);
-    if(!mysqli_stmt_prepare($stmt,$sql)){
-        header("location: ../profile_edit.php?error=stmtFailed");
-    }
+    if(!mysqli_stmt_prepare($stmt,$sql)) header("location: ../profile_edit.php?error=stmtFailed");
     mysqli_stmt_bind_param($stmt, "ss", $phoneNumber,$userid);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
@@ -181,10 +180,29 @@ function updatePassword($conn, $username, $pwd, $newPwd){
     $hashedPwd = password_hash($newPwd, PASSWORD_DEFAULT);
     $sql = "UPDATE users SET usersPwd = ? WHERE usersName = ?";
     $stmt = mysqli_stmt_init($conn);
-    if(!mysqli_stmt_prepare($stmt,$sql)){
-        header("location: ../profile_edit.php?error=stmtFailed");
-    }
+    if(!mysqli_stmt_prepare($stmt,$sql)) header("location: ../profile_edit.php?error=stmtFailed");
     mysqli_stmt_bind_param($stmt, "ss", $hashedPwd,$username);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+}
+
+//favorites
+function insertUsersFavorite($conn, $userid, $operator, $line, $origin, $destination){
+    $line = str_replace("{$operator}.","",$line);
+    $origin = str_replace("{$operator}.{$line}.","",$origin);
+    $destination = str_replace("{$operator}.{$line}.","",$destination);
+    $sql = "INSERT INTO users_favorites (usersid,operator,line,origin,destination) VALUE (?,?,?,?,?);";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt,$sql)) header("location: ../?error=stmtFailed");
+    mysqli_stmt_bind_param($stmt, "issss", $userid, $operator, $line, $origin, $destination);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+}
+function deleteUsersFavorite($conn, $favid){
+    $sql = "DELETE FROM users_favorites WHERE favid = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if(!mysqli_stmt_prepare($stmt,$sql)) header("location: ../?error=stmtFailed");
+    mysqli_stmt_bind_param($stmt, "i", $favid);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 }

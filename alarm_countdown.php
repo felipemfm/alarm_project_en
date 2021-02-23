@@ -9,7 +9,7 @@
     $arrival_time = $_SESSION["arrival_time"];
     if($arrival_time < date("H:i")){
         header("location: includes/cancel.inc.php");
-        exite();
+        exit();
     }
 ?>
 <?php include_once "includes/header.inc.php";?>
