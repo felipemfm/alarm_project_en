@@ -18,7 +18,7 @@ if(isset($_POST["submit"])){
             updateEmail($conn, $email, $_SESSION["userid"]);
         }
         $_SESSION["userEmail"] = $email;
-        header("location: ../profile_edit.php?error=none");
+        header("location: ../profile_edit.php?success=edit");
         exit();
     }
     if(isset($_POST["phoneNumber"])){
@@ -35,7 +35,7 @@ if(isset($_POST["submit"])){
             updatePhoneNumber($conn, $phoneNumber, $_SESSION["userid"]);
         }
         $_SESSION["userPhoneNumber"] = $phoneNumber;
-        header("location: ../profile_edit.php?error=none");
+        header("location: ../profile_edit.php?success=edit");
         exit();
     }
     if(isset($_POST["pwd"])){
@@ -53,7 +53,7 @@ if(isset($_POST["submit"])){
         if(isset($conn)){
             updatePassword($conn, $_SESSION["userName"],$pwd,$newPwd);
         }
-        header("location: ../profile_edit.php?error=none");
+        header("location: ../profile_edit.php?success=edit");
         exit();
     }
 }else{

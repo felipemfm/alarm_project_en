@@ -5,25 +5,7 @@
             <h1>TrainAlarm</h1>
         </div>
 
-            <?php
-            if(isset($_GET["error"])){
-                if($_GET["error"]=="none") {
-                    echo "<div class='text-center alert alert-success' role='alert'>";
-                    echo "登録完了";
-                    echo "</div>";
-                }
-                if($_GET["error"]=="emptyInput") {
-                    echo "<div class='text-center alert alert-danger' role='alert'>";
-                    echo "入力してください";
-                    echo "</div>";
-                }
-                if($_GET["error"]=="wrongLogin") {
-                    echo "<div class='text-center alert alert-danger' role='alert'>";
-                    echo "ユーザー名またはパスワードの入力に誤りがある";
-                    echo "</div>";
-                }
-            }
-            ?>
+            <?php include_once "includes/error_handler.inc.php";?>
 
         <form action="includes/login.inc.php" method="post">
             <div class="form-group">

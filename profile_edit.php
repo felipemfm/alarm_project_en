@@ -9,40 +9,7 @@ if(!isset($_SESSION["userName"])){
 
 <div class="container bg-white border rounded-3 mt-5 pb-3" style="width: 500px">
     <h1 class="text-center" style="margin: 1em;">プロファイル編集</h1>
-    <?php
-    if(isset($_GET["error"])){
-        if($_GET["error"]=="none") {
-            echo "<div class='text-center alert alert-success' role='alert'>";
-            echo "編集完了";
-            echo "</div>";
-        }
-        if($_GET["error"]=="emptyInput") {
-            echo "<div class='text-center alert alert-danger' role='alert'>";
-            echo "入力してください";
-            echo "</div>";
-        }
-        if($_GET["error"]=="invalidEmail") {
-            echo "<div class='text-center alert alert-danger' role='alert'>";
-            echo "インバリッドユーザメール";
-            echo "</div>";
-        }
-        if($_GET["error"]=="invalidPhoneNumber") {
-            echo "<div class='text-center alert alert-danger' role='alert'>";
-            echo "インバリッド電話番号";
-            echo "</div>";
-        }
-        if($_GET["error"]=="pwdNotMatch") {
-            echo "<div class='text-center alert alert-danger' role='alert'>";
-            echo "パスワードが合わない";
-            echo "</div>";
-        }
-        if($_GET["error"]=="wrongPwd") {
-            echo "<div class='text-center alert alert-danger' role='alert'>";
-            echo "間違えたパスワード";
-            echo "</div>";
-        }
-    }
-    ?>
+    <?php include_once "includes/error_handler.inc.php"?>
     <form action="includes/profile.inc.php" method="post">
         <div class="form-group ">
             <h2>メール</h2>

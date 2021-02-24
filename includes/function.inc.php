@@ -40,7 +40,7 @@ function creatUser($conn, $username, $email, $phoneNumber, $pwd){
     mysqli_stmt_bind_param($stmt, "ssss", $username, $email, $phoneNumber, $hashedPwd);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("location: ../login.php?error=none");
+    header("location: ../login.php?success=regis");
 }
 
 //login.php

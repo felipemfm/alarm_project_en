@@ -5,27 +5,7 @@
             <img src="image/icon.png" class="rounded mx-auto d-block" alt="icon" style="width: 30%;margin-top: 1em;">
             <h1>TrainAlarm</h1>
         </div>
-
-            <?php
-            if(isset($_GET["error"])){
-                echo "<div class='text-center alert alert-danger ' role='alert'>";
-                if($_GET["error"]=="emptyInput"){
-                    echo "入力してください";
-                }else if ($_GET["error"]=="invalidUid"){
-                    echo "インバリッドユーザID";
-                }else if ($_GET["error"]=="invalidEmail"){
-                    echo "インバリッドユーザメール";
-                }else if ($_GET["error"]=="invalidPhoneNumber"){
-                    echo "インバリッド電話番号";
-                }else if ($_GET["error"]=="pwdMatch"){
-                    echo "パスワードが合わない";
-                }else if ($_GET["error"]=="userTaken"){
-                    echo "ユーザまたはメールはユーザー名は既に取られています";
-                }
-                echo "</div>";
-            }
-            ?>
-
+        <?php include "includes/error_handler.inc.php";?>
         <form action="includes/registration.inc.php" method="post">
             <div class="form-group">
                 <h2>ユーザID</h2>

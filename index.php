@@ -73,21 +73,7 @@ if($_SESSION["userName"]&&$_SESSION["alarm_date"]){
 
     <h1 class='text-center' style='padding: 1em;'>アラム設定</h1>
     <div id="error" class="text-center" style="color: red">
-        <?php
-        if(isset($_GET["error"])){
-            echo "<div class='text-center alert alert-danger' role='alert'>";
-            if($_GET["error"]=="emptyInput"){
-                echo "入力してください";
-            }else if ($_GET["error"]=="sameAs"){
-                echo "発車駅と行先駅は異なければいけません";
-            }else if ($_GET["error"]=="unavailable"){
-                echo "選択不可";
-            }else if ($_GET["error"]=="invalidPhoneNumber") {
-                echo "インバリッド電話番号";
-            }
-            echo "</div>";
-        }
-        ?>
+        <?php include_once  "includes/error_handler.inc.php"; ?>
     </div>
     <form action="includes/alarm.inc.php" method="post" name="alarm">
         <h3>鉄道会社</h3>

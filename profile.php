@@ -6,7 +6,6 @@ if(!isset($_SESSION["userName"])){
 }
 ?>
 <?php include_once "includes/header.inc.php";?>
-
 <div class="container bg-white border rounded-3 mt-5" style="width: 500px">
     <h1 class="text-center m-1">ユーザプロファイル</h1>
     <div class="row">
@@ -38,8 +37,5 @@ if(!isset($_SESSION["userName"])){
             Edit Information
         </button>
     </div>
-
-
 </div>
-
 <?php include_once "includes/footer.inc.html";?>
