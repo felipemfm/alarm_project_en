@@ -5,16 +5,13 @@
     <meta charset="UTF-8">
     <title>TrainAlarm</title>
     <link rel="stylesheet" href="css/resetcss.css">
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="css/styles.css">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="image/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="image/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="image/favicon-16x16.png">
-    <link rel="manifest" href="image/site.webmanifest">
-    <link rel="mask-icon" href="/image/favicon.ico" color="#5bbad5">
-    <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
+
+    <link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="image/favicon.ico" type="image/x-icon">
     <meta name="robots" content="none,noindex,nofollow">
 </head>
 <body onload="document.alarm.reset();">
@@ -31,19 +28,19 @@
             <ul class="navbar-nav me-auto">
                 <?php
                 if(isset($_SESSION["userName"])) {
-                    echo "<li class='nav-item'><a class='nav-link active' href='profile.php'>Profile</a></li>";
-                    echo "<li class='nav-item'><a class='nav-link active' href='user_history.php'>History</a></li>";
+                    echo "<li class='nav-item'><a class='nav-link active' href='profile.php'>プロフィール</a></li>";
+                    echo "<li class='nav-item'><a class='nav-link active' href='user_history.php'>履歴</a></li>";
                 }else{
-                    echo "<li class='nav-item'><a class='nav-link active' href='non_user_check.php'>Alarm Check</a></li>";
+                    echo "<li class='nav-item'><a class='nav-link active' href='non_user_check.php'>アラーム確認</a></li>";
                 }
                 ?>
             </ul>
             <?php
             if(isset($_SESSION["userName"])) {
-                echo "<a class='nav-link active nav-item justify-content-end' href='includes/logout.inc.php'>Logout</a>";
+                echo "<a class='nav-link active nav-item justify-content-end' href='includes/logout.inc.php'>ログアウト</a>";
             }else{
-                echo "<a class='nav-link active nav-item justify-content-end' href='login.php'>Login</a>";
-                echo "<a class='nav-link active nav-item justify-content-end' href='registration.php'>Register</a>";
+                echo "<a class='nav-link active nav-item justify-content-end' href='login.php'>ログイン</a>";
+                echo "<a class='nav-link active nav-item justify-content-end' href='registration.php'>登録</a>";
             }
             ?>
         </div>

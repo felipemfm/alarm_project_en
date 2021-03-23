@@ -49,7 +49,6 @@
                 <h2><?php echo $arrival_time;?></h2>
             </div>
         </div>
-        <!--        <h2 style="margin: 2em 0"><strong>到着時間：</strong>--><?php //echo $arrival_time;?><!--</h2>-->
         <h2 style="margin: 2em 0"><strong>到着アラーム:</strong><span id="alarm_time"></span></h2>
     </div>
     <form action="includes/cancel.inc.php" method="post"">
@@ -62,14 +61,14 @@
 <?php include_once "includes/footer.inc.html";?>
 <script>
     //目覚ましcountDownScript
-    var countDown = new Date("<?php echo "$alarm_date"?>").getTime();
-    var x = setInterval(function (){
-        var now = new Date().getTime();
-        var distance = countDown - now;
+    let countDown = new Date("<?php echo "$alarm_date"?>").getTime();
+    let x = setInterval(function (){
+        let now = new Date().getTime();
+        let distance = countDown - now;
 
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         document.getElementById("alarm_time").innerHTML = hours+"時"+minutes+"分"+seconds+"秒";
 

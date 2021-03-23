@@ -15,7 +15,7 @@ if(isset($_POST["submit"])) {
         317,318,324,325,327,331,332,338,339,345,346,352,353,359,360);
 
     //APIのURLの先頭と認証キー
-    $auth_key = file_get_contents("../key.txt",false,null,0,43);
+    $auth_key = file_get_contents("./key/key.txt",false,null,0,43);
     $key= "?acl:consumerKey={$auth_key}";
     $header = "https://api-tokyochallenge.odpt.org/api/v4/datapoints/";
 

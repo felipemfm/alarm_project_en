@@ -1,7 +1,5 @@
 let auth_key;
-$.get("key.txt",function (data){
-    auth_key = data;
-});
+$.get("key/key.txt",(data)=>{auth_key = data;});
 function getLine(){
     $('#train_line').find('option:not(:first)').remove();
     $('#origin').find('option:not(:first)').remove();

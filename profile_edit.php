@@ -13,19 +13,15 @@ if(!isset($_SESSION["userName"])){
     <form action="includes/profile.inc.php" method="post">
         <div class="form-group ">
             <h2>メール</h2>
-            <div class="input-group mb-3">
-                <input type="text" name="email" class="form-control" >
-                <button class="btn btn-primary" type="submit" name="submit" id="button-addon2">Edit</button>
-            </div>
+            <input type="text" name="email" class="form-control" >
+            <button class="btn btn-primary my-3" type="submit" name="submit">編集</button>
         </div>
     </form>
     <form action="includes/profile.inc.php" method="post">
         <div class="form-group ">
             <h2>電話番号</h2>
-            <div class="input-group mb-3">
-                <input type="text" name="phoneNumber" class="form-control" >
-                <button class="btn btn-primary" type="submit" name="submit" id="button-addon2">Edit</button>
-            </div>
+            <input type="text" name="phoneNumber" class="form-control" >
+            <button class="btn btn-primary my-3" type="submit" name="submit">編集</button>
         </div>
     </form>
     <form action="includes/profile.inc.php" method="post">
@@ -37,7 +33,7 @@ if(!isset($_SESSION["userName"])){
             <input type="password" name="newPwdRepeat" class="form-control">
             <p>現在パスワード</p>
             <input type="password" name="pwd" class="form-control" >
-            <button class="btn btn-primary mt-3" type="submit" name="submit">Edit</button>
+            <button class="btn btn-primary mt-3" type="submit" name="submit">編集</button>
         </div>
     </form>
 </div>

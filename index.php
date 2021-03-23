@@ -73,9 +73,9 @@ if($_SESSION["userName"]&&$_SESSION["alarm_date"]){
 
     <h1 class='text-center' style='padding: 1em;'>アラム設定</h1>
     <div id="error" class="text-center" style="color: red">
-        <?php include_once  "includes/error_handler.inc.php"; ?>
+        <?php include_once "includes/error_handler.inc.php"; ?>
     </div>
-    <form action="includes/alarm.inc.php" method="post" name="alarm">
+    <form action="./includes/alarm.inc.php" method="post" name="alarm">
         <h3>鉄道会社</h3>
         <div class="form-group">
             <select name="operator" id="operator" class="form-control form-select"  onchange="getLine()">
@@ -127,8 +127,8 @@ if($_SESSION["userName"]&&$_SESSION["alarm_date"]){
         }
         ?>
         <div class="btn-group mx-auto mt-4" role="group" style="width: 100%;">
-            <input type="submit" id="submit" name="submit" class="btn btn-success btn-lg col-5">
-            <input type="reset" class="btn btn-primary col-5 btn-lg"name="クリア" onclick="resetValue()">
+            <input type="submit" id="submit" name="submit" value="送信"class="btn btn-success btn-lg col-5">
+            <input type="reset" class="btn btn-primary col-5 btn-lg"value="リセット" 　name="クリア" onclick="resetValue()">
             <?php if(isset($_SESSION["userName"])) {
                 echo "<button type='button' class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#fav_modal'>
                 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-star' viewBox='0 0 16 16'>
@@ -136,10 +136,6 @@ if($_SESSION["userName"]&&$_SESSION["alarm_date"]){
                 </svg>
             </button>";
             }?>
-
     </form>
-
-</div>
-</div>
 </div>
 <?php include_once "includes/footer.inc.html";?>
