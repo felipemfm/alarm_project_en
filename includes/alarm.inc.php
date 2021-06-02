@@ -3,12 +3,15 @@
 //APIは、https://developer-tokyochallenge.odpt.org/ja/infoで提供されました。
 //
 //https://api-tokyochallenge.odpt.org/api/v4/odpt:Railway?acl:consumerKey=99ALsOEmGINOQdkB4JCC0E65hfVjF0Q9JY7nehtdRAo
+//
 session_start();
 include_once "function.inc.php";
 include_once "dbh.inc.php";
 if(isset($_POST["submit"])) {
     date_default_timezone_set('Asia/Tokyo');
     $time = date("H:i");
+
+    //$day_checkのarrayは、当日の日付が土日祝であるかどうかをチェックするために使用されます。
     $day_check = array(9,10,11,16,17,23,24,30,31,37,38,42,44,45,51,52,58,59,65,66,72,73,79,80,86,87,93,94,100,101,107,108,114,115,119,
         121,122,123,124,125,128,129,135,136,142,143,149,150,156,157,163,164,170,171,177,178,184,185,191,192,198,199,203,204,205,206,212,
         213,219,220,221,226,227,233,234,240,241,247,248,254,255,261,262,263,266,268,269,275,276,282,283,289,290,296,297,303,304,310,311,
@@ -24,6 +27,7 @@ if(isset($_POST["submit"])) {
     $origin = $_POST['origin'];
     $destination = $_POST['destination'];
 
+    //入力情報　確認機能
     if(empty($operator)||empty($line)||empty($origin)||empty($destination)||(!isset($_SESSION["userName"])&&empty($_POST["phone"]))){
         header("location: ../?error=emptyInput");
         exit();
@@ -32,6 +36,7 @@ if(isset($_POST["submit"])) {
         header("location: ../?error=sameAs");
         exit();
     }
+    //ユーザーが登録されていない場合は特に注意が必要です。
     if (isset($_POST["phone"]) && invalidPhoneNumber($_POST["phone"]) !== false) {
         header("location: ../?error=invalidPhoneNumber");
         exit();
@@ -103,6 +108,7 @@ if(isset($_POST["submit"])) {
         header("location: ../?error=unavailable");
         exit();
     }else{
+        //これらの変数は、アラームのカウントダウンページを構築するために使用されます。
         $alarm_date = date("F j, Y")."\t".$arrival_time.":00";
         $_SESSION["alarm_date"] = $alarm_date;
         $_SESSION["line"] = $line;
@@ -112,9 +118,11 @@ if(isset($_POST["submit"])) {
         $_SESSION["arrival_time"] = $arrival_time;
 
         if (isset($conn)) {
+            //ユーザーが登録されていない場合
             if(isset($_POST["phone"])){
                 $_SESSION["nonUserPhoneNumber"] = $_POST["phone"];
                 addActiveAlarm($conn, 0, $_SESSION["nonUserPhoneNumber"], $alarm_date, $line, $origin_en, $destination_en, $departure_time, $arrival_time);
+            //ユーザーが登録されている場合
             }else if(isset($_SESSION["userName"])){
                 cancelAlarm($conn, $_SESSION["userid"],$_SESSION["userPhoneNumber"]);
                 insertUsersHistory($conn, $_SESSION["userid"], $operator, $line, $origin, $destination);
