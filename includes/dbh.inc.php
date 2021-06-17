@@ -1,9 +1,9 @@
 <?php
 
 $serverName = "localhost";
-$dBUsername = "hew2020_00625";
+$dBUsername = "";
 $dBPassword = "";
-$dBName = "hew2020_00625";
+$dBName = "";
 
 $conn = mysqli_connect($serverName, $dBUsername, $dBPassword, $dBName);
 
