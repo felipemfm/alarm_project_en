@@ -5,8 +5,8 @@
 //https://api-tokyochallenge.odpt.org/api/v4/odpt:Railway?acl:consumerKey=99ALsOEmGINOQdkB4JCC0E65hfVjF0Q9JY7nehtdRAo
 //
 session_start();
-include_once "function.inc.php";
-include_once "dbh.inc.php";
+include_once "function/functions.php";
+include_once "access/dbh.access.php";
 if(isset($_POST["submit"])) {
     date_default_timezone_set('Asia/Tokyo');
     $time = date("H:i");

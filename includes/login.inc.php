@@ -5,8 +5,8 @@ if(isset($_POST["submit"])){
     $username = $_POST["uid"];
     $pwd = $_POST["pwd"];
 
-    include_once "dbh.inc.php";
-    include_once "function.inc.php";
+    include_once "access/dbh.access.php";
+    include_once "function/functions.php";
 
     if (emptyInputLogin($username, $pwd) !== false) {
         header("location: ../login.php?error=emptyInput");

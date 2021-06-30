@@ -1,10 +1,10 @@
 <?php
 session_start();
-include_once "includes/header.inc.php";
+include_once "add/header.add.php";
 ?>
 <div class="container bg-white border rounded-3 mx-auto my-5 py-3" style="width: 500px">
     <h3 class="text-center">アラーム確認</h3>
-    <?php include "includes/error_handler.inc.php";?>
+    <?php include "add/error_handler.add.php";?>
     <form action="./includes/non_user_check.inc.php" method="post">
         <div class="form-group">
             <h4 class="my-2 text-center">携帯番号を入力してくだい</h4>
@@ -13,4 +13,4 @@ include_once "includes/header.inc.php";
         </div>
     </form>
 </div>
-<?php include_once "includes/footer.inc.html";?>
+<?php include_once "add/footer.add.html";?>

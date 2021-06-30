@@ -5,7 +5,7 @@ if(!isset($_SESSION["userName"])){
     exit();
 }
 ?>
-<?php include_once "includes/header.inc.php";?>
+<?php include_once "add/header.add.php";?>
 <div class="container bg-white border rounded-3 mt-5" style="width: 500px">
     <h1 class="text-center my-5">ユーザプロファイル</h1>
     <div class="row">
@@ -38,4 +38,4 @@ if(!isset($_SESSION["userName"])){
         </button>
     </div>
 </div>
-<?php include_once "includes/footer.inc.html";?>
+<?php include_once "add/footer.add.html";?>

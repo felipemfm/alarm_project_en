@@ -7,8 +7,8 @@ if(isset($_POST['submit'])) {
     $email = $_POST['email'];
     $phoneNumber = $_POST['phoneNumber'];
 
-    require_once 'dbh.inc.php';
-    require_once 'function.inc.php';
+    require_once 'access/dbh.access.php';
+    require_once 'function/functions.php';
 
     if (emptyInputRegis($username, $pwd, $pwdRepeat, $email, $phoneNumber) !== false) {
         header("location: ../registration.php?error=emptyInput");

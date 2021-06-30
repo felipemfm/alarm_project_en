@@ -1,9 +1,9 @@
 <?php
 
 $serverName = "localhost";
-$dBUsername = "";
+$dBUsername = "root";
 $dBPassword = "";
-$dBName = "";
+$dBName = "train_alarm";
 
 $conn = mysqli_connect($serverName, $dBUsername, $dBPassword, $dBName);
 

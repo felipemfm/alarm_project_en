@@ -1,6 +1,6 @@
 <?php
-include_once "function.inc.php";
-include_once "dbh.inc.php";
+include_once "function/functions.php";
+include_once "access/dbh.access.php";
 session_start();
 if (isset($conn)) {
     if(isset($_SESSION["userName"]))

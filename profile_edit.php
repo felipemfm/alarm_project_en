@@ -5,11 +5,11 @@ if(!isset($_SESSION["userName"])){
     exit();
 }
 ?>
-<?php include_once "includes/header.inc.php";?>
+<?php include_once "add/header.add.php";?>
 
 <div class="container bg-white border rounded-3 mt-5 pb-3" style="width: 500px">
     <h1 class="text-center" style="margin: 1em;">プロファイル編集</h1>
-    <?php include_once "includes/error_handler.inc.php"?>
+    <?php include_once "add/error_handler.add.php" ?>
     <form action="includes/profile.inc.php" method="post">
         <div class="form-group ">
             <h2>メール</h2>
@@ -37,5 +37,5 @@ if(!isset($_SESSION["userName"])){
         </div>
     </form>
 </div>
-<?php include_once "includes/footer.inc.html";?>
+<?php include_once "add/footer.add.html";?>
 </html>

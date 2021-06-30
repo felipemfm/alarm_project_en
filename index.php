@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once "includes/header.inc.php";
-include_once "includes/dbh.inc.php";
+include_once "add/header.add.php";
+include_once "access/dbh.access.php";
 if($_SESSION["userName"]&&$_SESSION["alarm_date"]){
     header("location: alarm_countdown.php");
     exit();
@@ -73,7 +73,7 @@ if($_SESSION["userName"]&&$_SESSION["alarm_date"]){
 
     <h1 class='text-center' style='padding: 1em;'>アラム設定</h1>
     <div id="error" class="text-center" style="color: red">
-        <?php include_once "includes/error_handler.inc.php"; ?>
+        <?php include_once "add/error_handler.add.php"; ?>
     </div>
     <form action="./includes/alarm.inc.php" method="post" name="alarm">
         <h3>鉄道会社</h3>
@@ -138,4 +138,4 @@ if($_SESSION["userName"]&&$_SESSION["alarm_date"]){
             }?>
     </form>
 </div>
-<?php include_once "includes/footer.inc.html";?>
+<?php include_once "add/footer.add.html";?>

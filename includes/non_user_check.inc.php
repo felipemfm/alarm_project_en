@@ -1,6 +1,6 @@
 <?php
-include_once "dbh.inc.php";
-include_once "function.inc.php";
+include_once "access/dbh.access.php";
+include_once "function/functions.php";
 if (isset($_POST["submit"])){
     $phone = $_POST["phone"];
 

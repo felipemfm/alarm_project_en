@@ -1,7 +1,7 @@
 <?php
 session_start();
-include_once "includes/dbh.inc.php";
-include_once "includes/header.inc.php";
+include_once "access/dbh.access.php";
+include_once "add/header.add.php";
 ?>
 <div class="container bg-white border rounded-3 mt-3" style="width: 1000px">
     <h2 class="text-center" style="margin-bottom: 1em">ユーザ履歴</h2>
@@ -61,5 +61,5 @@ include_once "includes/header.inc.php";
         </table>
     </div>
 </div>
-<?php include_once "includes/footer.inc.html";?>
+<?php include_once "add/footer.add.html";?>
 </html>

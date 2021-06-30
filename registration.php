@@ -1,11 +1,11 @@
-<?php include_once "includes/header.inc.php" ?>
+<?php include_once "add/header.add.php" ?>
     <div class="container bg-white border rounded-3" style="width: 500px;">
 
         <div class="text-center">
             <img src="image/icon.png" class="rounded mx-auto d-block" alt="icon" style="width: 30%;margin-top: 1em;">
             <h1>TrainAlarm</h1>
         </div>
-        <?php include "includes/error_handler.inc.php";?>
+        <?php include "add/error_handler.add.php";?>
         <form action="./includes/registration.inc.php" method="post">
             <div class="form-group">
                 <h2>ユーザID</h2>
@@ -30,5 +30,5 @@
             <input type="submit" name="submit" value="送信" class="btn btn-primary btn-lg mb-3">
         </form>
     </div>
-<?php include_once "includes/footer.inc.html";?>
+<?php include_once "add/footer.add.html";?>
 </html>

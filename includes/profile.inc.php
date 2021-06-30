@@ -1,8 +1,8 @@
 <?php
 if(isset($_POST["submit"])){
     session_start();
-    include_once "dbh.inc.php";
-    include_once "function.inc.php";
+    include_once "access/dbh.access.php";
+    include_once "function/functions.php";
 
     if(isset($_POST["email"])){
         $email = $_POST["email"];

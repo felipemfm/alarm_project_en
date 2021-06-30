@@ -12,7 +12,7 @@
         exit();
     }
 ?>
-<?php include_once "includes/header.inc.php";?>
+<?php include_once "add/header.add.php";?>
 <div class="container bg-white border rounded-3 mt-3" style="width: 700px;">
     <div class="text-center">
         <h2 style="margin: 1em 0 0.5em 0"><strong>線路</strong></h2>
@@ -58,7 +58,7 @@
     </form>
 
 </div>
-<?php include_once "includes/footer.inc.html";?>
+<?php include_once "add/footer.add.html";?>
 <script>
     //目覚ましcountDownScript
     let countDown = new Date("<?php echo "$alarm_date"?>").getTime();
