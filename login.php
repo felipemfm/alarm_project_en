@@ -16,7 +16,7 @@
                 <h2>Password</h2>
                 <input type="password" name="pwd" class="form-control" ><br>
             </div>
-            <input type="submit" name="submit" value="ログイン" class="btn btn-primary btn-lg" value="Login">
+            <input type="submit" name="submit" value="Login" class="btn btn-primary btn-lg" value="Login">
         </form>
     </div>
 <?php include_once "add/footer.add.html";?>
