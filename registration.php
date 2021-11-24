@@ -8,26 +8,26 @@
         <?php include "add/error_handler.add.php";?>
         <form action="./includes/registration.inc.php" method="post">
             <div class="form-group">
-                <h2>ユーザID</h2>
+                <h2>UserID</h2>
                 <input type="text" name="userid" class="form-control" >
             </div>
             <div class="form-group">
-                <h2>パスワード</h2>
+                <h2>Password</h2>
                 <input type="password" name="pwd" class="form-control" ><br>
             </div>
             <div class="form-group">
-                <h2>パスワード確認</h2>
+                <h2>Password Confirmation</h2>
                 <input type="password" name="pwdRepeat" class="form-control" ><br>
             </div>
             <div class="form-group">
-                <h2>メール</h2>
+                <h2>Email</h2>
                 <input type="email" name="email" class="form-control" ><br>
             </div>
             <div class="form-group">
-                <h2>携帯番号(11桁)</h2>
+                <h2>Phonenumber(11 digits)</h2>
                 <input type="text" name="phoneNumber" class="form-control" ><br>
             </div>
-            <input type="submit" name="submit" value="送信" class="btn btn-primary btn-lg mb-3">
+            <input type="submit" name="submit" value="Send" class="btn btn-primary btn-lg mb-3">
         </form>
     </div>
 <?php include_once "add/footer.add.html";?>
