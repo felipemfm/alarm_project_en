@@ -4,18 +4,18 @@ include_once "access/dbh.access.php";
 include_once "add/header.add.php";
 ?>
 <div class="container bg-white border rounded-3 mt-3" style="width: 1000px">
-    <h2 class="text-center" style="margin-bottom: 1em">ユーザ履歴</h2>
-    <p class="text-center">ラスト20エントリ</p>
+    <h2 class="text-center" style="margin-bottom: 1em">User History</h2>
+    <p class="text-center">Last 20 entries</p>
     <div class="container" style="overflow: auto;">
         <table class='table table-hover table-sm table-responsive'>
             <div>
             <thead class="sticky-top">
             <tr class="bg-light">
-                <th scope="col">日付</th>
-                <th scope="col">鉄道会社</th>
-                <th scope="col">線路</th>
-                <th scope="col">発車駅</th>
-                <th scope="col">行先駅</th>
+                <th scope="col">Date</th>
+                <th scope="col">Operator</th>
+                <th scope="col">Line</th>
+                <th scope="col">Departure</th>
+                <th scope="col">Destination</th>
                 <th scope="col"></th>
             </tr>
             </thead>
@@ -42,7 +42,7 @@ include_once "add/header.add.php";
                                 echo "<td><input name='train_line' type='hidden' value='{$operator}.{$line}'>{$line}</td>";
                                 echo "<td><input name='origin' type='hidden' value='{$operator}.{$line}.{$origin}'>{$origin}</td>";
                                 echo "<td><input name='destination' type='hidden' value='{$operator}.{$line}.{$destination}'>{$destination}</td>";
-                                echo "<td><button type='submit' id='submit' name='submit' class='btn btn-outline-primary'>送信</button></td>";
+                                echo "<td><button type='submit' id='submit' name='submit' class='btn btn-outline-primary'>Send</button></td>";
                                 echo "</form>";
                                 echo "</tr>";
                             }
