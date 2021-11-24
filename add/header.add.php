@@ -28,19 +28,19 @@
             <ul class="navbar-nav me-auto">
                 <?php
                 if(isset($_SESSION["userName"])) {
-                    echo "<li class='nav-item'><a class='nav-link active' href='profile.php'>プロフィール</a></li>";
-                    echo "<li class='nav-item'><a class='nav-link active' href='user_history.php'>履歴</a></li>";
+                    echo "<li class='nav-item'><a class='nav-link active' href='profile.php'>Profile</a></li>";
+                    echo "<li class='nav-item'><a class='nav-link active' href='user_history.php'>History</a></li>";
                 }else{
-                    echo "<li class='nav-item'><a class='nav-link active' href='non_user_check.php'>アラーム確認</a></li>";
+                    echo "<li class='nav-item'><a class='nav-link active' href='non_user_check.php'>Alarm Verification</a></li>";
                 }
                 ?>
             </ul>
             <?php
             if(isset($_SESSION["userName"])) {
-                echo "<a class='nav-link active nav-item justify-content-end' href='includes/logout.inc.php'>ログアウト</a>";
+                echo "<a class='nav-link active nav-item justify-content-end' href='includes/logout.inc.php'>Logout</a>";
             }else{
-                echo "<a class='nav-link active nav-item justify-content-end' href='login.php'>ログイン</a>";
-                echo "<a class='nav-link active nav-item justify-content-end' href='registration.php'>登録</a>";
+                echo "<a class='nav-link active nav-item justify-content-end' href='login.php'>Login</a>";
+                echo "<a class='nav-link active nav-item justify-content-end' href='registration.php'>Registration</a>";
             }
             ?>
         </div>
