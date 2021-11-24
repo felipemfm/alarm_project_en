@@ -13,16 +13,16 @@ if($_SESSION["userName"]&&$_SESSION["alarm_date"]){
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">ユーザーお気に入り</h5>
+                    <h5 class="modal-title" id="modalLabel">Favorites</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="text-center fs-6">お気に入りを5個まで保存することができます</p>
+                    <p class="text-center fs-6">You can save up to five favorites.</p>
                     <table class="table table-hover table-sm table-responsive">
                         <thead>
                         <tr>
-                            <th scope="col">発車駅</th>
-                            <th scope="col">行先駅</th>
+                            <th scope="col">Departure</th>
+                            <th scope="col">Destination</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
                         </tr>
@@ -48,11 +48,11 @@ if($_SESSION["userName"]&&$_SESSION["alarm_date"]){
                                         echo "<input name='train_line' type='hidden' value='{$operator}.{$line}'>";
                                         echo "<td><input name='origin' type='hidden' value='{$operator}.{$line}.{$origin}'>{$origin}</td>";
                                         echo "<td><input name='destination' type='hidden' value='{$operator}.{$line}.{$destination}'>{$destination}</td>";
-                                        echo "<td><button type='submit' id='submit' name='submit' class='btn btn-outline-primary'>送信</button></td>";
+                                        echo "<td><button type='submit' id='submit' name='submit' class='btn btn-outline-primary'>Send</button></td>";
                                         echo "</form>";
                                         echo "<form action='./includes/delete_favorite.inc.php' method='post'>";
                                         echo "<input type='hidden' name='id' value='{$favId}'>";
-                                        echo "<td><button type='submit' id='submit' name='submit' class='btn btn-outline-danger'>削除</button></td>";;
+                                        echo "<td><button type='submit' id='submit' name='submit' class='btn btn-outline-danger'>Erase</button></td>";;
                                         echo "</form>";
                                         echo "</tr>";
                                         $cnt++;
@@ -71,12 +71,12 @@ if($_SESSION["userName"]&&$_SESSION["alarm_date"]){
         </div>
     </div>
 
-    <h1 class='text-center' style='padding: 1em;'>アラム設定</h1>
+    <h1 class='text-center' style='padding: 1em;'>Alarm Setup</h1>
     <div id="error" class="text-center" style="color: red">
         <?php include_once "add/error_handler.add.php"; ?>
     </div>
     <form action="./includes/alarm.inc.php" method="post" name="alarm">
-        <h3>鉄道会社</h3>
+        <h3>Line Operator</h3>
         <div class="form-group">
             <select name="operator" id="operator" class="form-control form-select"  onchange="getLine()">
                 <option value=""selected></option>
@@ -97,19 +97,19 @@ if($_SESSION["userName"]&&$_SESSION["alarm_date"]){
             </select>
         </div>
         <div class="form-group">
-            <h3>線路</h3>
+            <h3>Line</h3>
             <select name="train_line" id="train_line" class="form-control form-select"  onchange="getStation()">
                 <option value="" selected ></option>
             </select>
         </div>
         <div class="form-group">
-            <h3>発車駅</h3>
+            <h3>Departure</h3>
             <select name="origin" id="origin" class="form-control form-select" >
                 <option value="" selected ></option>
             </select>
         </div>
         <div class="form-group">
-            <h3>行先駅</h3>
+            <h3>Destination</h3>
             <select name="destination" id="destination" class="form-control form-select" >
                 <option value="" selected ></option>
             </select>
@@ -118,17 +118,17 @@ if($_SESSION["userName"]&&$_SESSION["alarm_date"]){
             if($cnt<5) {
                 echo "<div class='form-check'>
             <input class='form-check-input' type='checkbox' id='fav' name='fav' name='set'>
-            <label class='form-check-label' for='fav'>気に入りにする</label></div>";
+            <label class='form-check-label' for='fav'>Favorite</label></div>";
             }
         }else{
             echo "<div class='form-group'>
-                    <h3>携帯番号(11桁)</h3>
+                    <h3>Phonenumber(11 digits)</h3>
                     <input type='text' name='phone' class='input-group'></div>";
         }
         ?>
         <div class="btn-group mx-auto mt-4" role="group" style="width: 100%;">
             <input type="submit" id="submit" name="submit" value="送信"class="btn btn-success btn-lg col-5">
-            <input type="reset" class="btn btn-primary col-5 btn-lg"value="リセット" 　name="クリア" onclick="resetValue()">
+            <input type="reset" class="btn btn-primary col-5 btn-lg"value="Reset" 　name="Clear" onclick="resetValue()">
             <?php if(isset($_SESSION["userName"])) {
                 echo "<button type='button' class='btn btn-warning' data-bs-toggle='modal' data-bs-target='#fav_modal'>
                 <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-star' viewBox='0 0 16 16'>
