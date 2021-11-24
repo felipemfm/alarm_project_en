@@ -1,5 +1,4 @@
 <?php
-//各ファイルの機能をまとめました。
 //registration.php
 function emptyInputRegis($username, $pwd, $pwdRepeat, $email, $phoneNumber){
     return empty($username) || empty($pwd) || empty($pwdRepeat) || empty($email) || empty($phoneNumber);
@@ -69,7 +68,7 @@ function loginUser($conn, $username, $pwd){
         $_SESSION["userEmail"] = $uidExists["usersEmail"];
         $_SESSION["userPhoneNumber"] = $uidExists["usersPhoneNumber"];
 
-        //ログインが成功した後、ユーザーがアクティブなアラームを持っているかどうかをチェックします。
+        //After a successful login, check if the user has an active alarm.
         $activeAlarm = getActiveAlarm($conn, $_SESSION["userid"],$_SESSION["userPhoneNumber"]);
         if($activeAlarm){
             $_SESSION["alarm_date"] = $activeAlarm["alarm_date"];
@@ -93,7 +92,7 @@ function loginUser($conn, $username, $pwd){
 
 //alarm.inc.php
 function insertUsersHistory($conn, $userid, $operator, $line, $origin, $destination){
-    //ユーザーが20件以上のエントリーを持っているかどうかをチェックします。
+    //Checks if the user has more than 20 entries.
     $sql = "SELECT COUNT(*) FROM users_history WHERE usersid = ? HAVING COUNT(*) = 20;";
     $stmt = mysqli_stmt_init($conn);
     if(!mysqli_stmt_prepare($stmt,$sql)) header("location: ../?error=stmtFailed");
@@ -102,7 +101,7 @@ function insertUsersHistory($conn, $userid, $operator, $line, $origin, $destinat
     $result = mysqli_stmt_get_result($stmt);
     mysqli_stmt_close($stmt);
 
-    //肯定的な場合、最も古いエントリーを削除します。
+    //If positive, delete the oldest entry.
     if(!empty($result->num_rows)){
         $sql = "DELETE FROM users_history WHERE usersid = ? ORDER BY date ASC LIMIT 1;";
         $stmt = mysqli_stmt_init($conn);
