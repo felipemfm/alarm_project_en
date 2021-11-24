@@ -15,14 +15,14 @@
 <?php include_once "add/header.add.php";?>
 <div class="container bg-white border rounded-3 mt-3" style="width: 700px;">
     <div class="text-center">
-        <h2 style="margin: 1em 0 0.5em 0"><strong>線路</strong></h2>
+        <h2 style="margin: 1em 0 0.5em 0"><strong>Line</strong></h2>
         <h2 style="margin: 0.5em 0 1em 0"><?php echo $line;?></h2>
         <div class="row" style="margin: 1em 0 0.5em 0">
             <div class="col-sm">
-                <h2><strong>発車駅</strong></h2>
+                <h2><strong>Departure</strong></h2>
             </div>
             <div class="col-sm">
-                <h2><strong>行先駅</strong></h2>
+                <h2><strong>Destination</strong></h2>
             </div>
         </div>
         <div class="row" style="margin: 0.5em 0 1em 0">
@@ -35,10 +35,10 @@
         </div>
         <div class="row" style="margin: 1em 0 0.5em 0">
             <div class="col-sm">
-                <h2><strong>出発時間</strong></h2>
+                <h2><strong>Departure Time</strong></h2>
             </div>
             <div class="col-sm">
-                <h2><strong>到着時間</strong></h2>
+                <h2><strong>Arrival Time</strong></h2>
             </div>
         </div>
         <div class="row" style="margin: 0.5em 0 1em 0">
@@ -49,7 +49,7 @@
                 <h2><?php echo $arrival_time;?></h2>
             </div>
         </div>
-        <h2 style="margin: 2em 0"><strong>到着アラーム:</strong><span id="alarm_time"></span></h2>
+        <h2 style="margin: 2em 0"><strong>Arrival Alarm:</strong><span id="alarm_time"></span></h2>
     </div>
     <form action="includes/cancel.inc.php" method="post"">
         <button type="submit" class="btn btn-danger btn-lg" style="margin-bottom: 1em;" ">
