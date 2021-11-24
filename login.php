@@ -9,11 +9,11 @@
 
         <form action="./includes/login.inc.php" method="post">
             <div class="form-group">
-                <h2>ユーザＩＤ</h2>
+                <h2>User ID</h2>
                 <input type="text" name="uid" class="form-control" >
             </div>
             <div class="form-group">
-                <h2>パスワード</h2>
+                <h2>Password</h2>
                 <input type="password" name="pwd" class="form-control" ><br>
             </div>
             <input type="submit" name="submit" value="ログイン" class="btn btn-primary btn-lg" value="Login">
